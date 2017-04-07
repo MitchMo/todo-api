@@ -7,7 +7,7 @@ var todos = [{
   completed: false
 }, {
   id: 2,
-  description: 'Watch 13 Resons Why',
+  description: 'Watch 13 Reasons Why',
   completed: false
 }, {
   id: 3,
