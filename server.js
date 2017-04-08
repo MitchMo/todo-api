@@ -11,7 +11,7 @@ var todos = [{
   completed: false
 }, {
   id: 3,
-  description: 'Kill a kitten.',
+  description: 'Save a kitten.',
   completed: true
 }];
 
