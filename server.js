@@ -88,7 +88,8 @@ app.delete('/todos/:id', middleware.requireAuthentication, function(req, res) {
 
   db.todo.destroy({
     where: {
-      id: todoId
+      id: todoId,
+      userId: req.user.get('id')
     }
   }).then(function (rowsDeleted) {
     if(rowsDeleted === 0) {
@@ -108,6 +109,10 @@ app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
   var todoId = parseInt(req.params.id, 10);
   var body = _.pick(req.body, 'completed', 'description');
   var attributes = {};
+  var where = {
+    id: todoId,
+    userId: req.user.get('id')
+  };
 
   if(body.hasOwnProperty('completed')) {
     attributes.completed = body.completed;
@@ -117,7 +122,7 @@ app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
     attributes.description = body.description;
   }
 
-  db.todo.findById(todoId).then(function(todo) {
+  db.todo.findOne({where: where}).then(function(todo) {
     if(todo) {
       todo.update(attributes).then(function(todo) {
         res.json(todo.toJSON());
